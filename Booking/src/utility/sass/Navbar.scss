@@ -1,0 +1,13 @@
+@import './variable';
+
+.flag {
+    border-radius: 50%;
+    width: 2rem;
+}
+.back {
+    background-color:$base-color;
+}
+
+#basic-nav-dropdown {
+    color: white !important;
+}

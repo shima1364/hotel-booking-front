@@ -1,0 +1,14 @@
+address
+cheapestPrice
+city
+desc
+distance
+featured boolean
+location 
+name  ///
+photos array
+rating
+rooms array
+type
+__v
+_id

@@ -1,0 +1,11 @@
+@import './variable';
+
+.btn{
+    color : $sign-btn-font-color;
+    font-weight: 500;
+    background-color: $sign-btn-color;
+    border-radius: 2px;
+    border: 1px solid $sign-btn-border-color;
+    font-size: 14px;
+    padding: 0 1rem !important;
+}
