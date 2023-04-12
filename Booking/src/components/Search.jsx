@@ -26,7 +26,7 @@ function MyVerticallyCenteredModal(props) {
 function Search(props) {
   const [modalShow, setModalShow] = React.useState(false);
   const ctx = useContext(DataContext);
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const sendDataHandler = () => {
     const SendData = {
       Destination: ctx.Destination,
@@ -34,35 +34,31 @@ const navigate = useNavigate()
       FinalDate: ctx.FinalDate,
       Adult: ctx.AdultCounter,
       Children: ctx.ChildrenCounter,
-      Room: ctx.RoomCounter
+      Room: ctx.RoomCounter,
     };
 
-    navigate('/hotels')
+    navigate("/hotels");
   };
 
   return (
-    <div className="container mt-3 d-flex d-lg-block">
-      <div className="row bg-danger py-1 rounded-3 mb-3 text-center d-flex flex-column flex-lg-row">
-        <div className="col-4 d-flex justify-content-end">
+    <div className="container mt-3 d-flex d-lg-flex justify-content-center align-items-center">
+      <div
+        className="py-2 ps-3 ps-lg-0 align-items-start align-items-lg-center rounded-3 mb-3 d-flex flex-column flex-lg-row justify-content-evenly col-12"
+        style={{ backgroundColor: "#FFB700" }}
+      >
+        <div className="w-25">
           <SelectLocation />
         </div>
-        <div className="col-2">
+        <div className="my-2">
           <SelectDateStart />
         </div>
-        <div className="col-2">
+        <div>
           <SelectDateEnd />
         </div>
-        <div className="col-3">
-          <Button variant="light" onClick={() => setModalShow(true)}>
-            {ctx.AdultCounter} Adult . {ctx.ChildrenCounter} Children .{" "}
-            {ctx.RoomCounter} Room
-          </Button>
-          <MyVerticallyCenteredModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-          />
+        <div className="my-2">
+          <SelectPeople />
         </div>
-        <div className="col-1">
+        <div className="d-flex justify-content-end">
           <button onClick={sendDataHandler} className="btn btn-primary">
             Search
           </button>

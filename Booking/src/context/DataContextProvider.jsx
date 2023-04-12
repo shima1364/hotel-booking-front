@@ -6,9 +6,8 @@ import GerFlag from "../dist/img/GerFlag.png";
 const DataContextProvider = (props) => {
   ///Currency
   const [currency, setCurrency] = useState([
-    { currency: "USD", country: "U.S. Dollar", id: 1 },
-    { currency: "EUR", country: "EURO", id: 2 },
-    { currency: "TRY", country: "Turkish Lira", id: 3 },
+    { currency: "USD", country: "U.S. Dollar", id: 1, symbole: "US$" },
+    { currency: "EUR", country: "EURO", id: 2, symbole: "€" },
   ]);
   const [defaultCurrency, setDefaultCurrency] = useState(currency[0].currency);
   ///Language
@@ -49,7 +48,9 @@ const DataContextProvider = (props) => {
   const [HotelAPI, setHotelAPI] = useState([]);
   //Destination
   const [Destination, setDestination] = useState();
-  
+  //Hotels Filter
+  const [hotels, setHotels] = useState([]);
+
 
   return (
     <DataContext.Provider
@@ -80,6 +81,8 @@ const DataContextProvider = (props) => {
         setRoomCounter,
         HotelAPI,
         setHotelAPI,
+        hotels,
+        setHotels,
       }}
     >
       {props.children}

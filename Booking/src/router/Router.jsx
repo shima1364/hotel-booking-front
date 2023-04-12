@@ -3,6 +3,7 @@ import LandingPage from "../pages/LandingPage";
 import Register from './../pages/Register';
 import SignIn from './../pages/SignIn';
 import Hotels from "../pages/Hotels";
+import Hotel from "../pages/Hotel";
 
 
 function Router(props) {
@@ -12,6 +13,7 @@ function Router(props) {
             <Route path="/register" element={<Register/>}/>
             <Route path="/signin" element={<SignIn/>}/>
             <Route path="/hotels" element={<Hotels/>}/>
+            <Route path="/hotels/:id" element={<Hotel/>}/>
         </Routes>
     );
 }

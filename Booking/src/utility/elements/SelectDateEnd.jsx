@@ -12,7 +12,7 @@ function SelectDateEnd(props) {
   return (
     <div>
       <input
-        className="border-0 p-2 rounded-3"
+        className="border-0 p-2 rounded-3 w-100"
         type="date"
         defaultValue={ctx.FinalDate}
         ref={FinalDate}

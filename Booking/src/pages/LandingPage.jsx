@@ -6,6 +6,7 @@ import BackPic from '../dist/img/beach.webp'
 import styles from '../utility/sass/LandingPage.module.scss'
 import { useContext } from "react";
 import { DataContext } from "../context/dataContext";
+import Carousel from "../components/Carousel";
 
 function LandingPage(props) {
 
@@ -24,10 +25,10 @@ useEffect(() => {
 
   return (
     <div>
-        <img className={styles.BackPic} src={BackPic} alt="" />
       <NavbarApp />
       <Header />
       <Search />
+      <Carousel image={ctx.HotelAPI}/>
     </div>
   );
 }

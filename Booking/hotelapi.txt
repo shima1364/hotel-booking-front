@@ -1,14 +1,14 @@
-address
-cheapestPrice
-city
-desc
-distance
+address //
+cheapestPrice //
+city --
+desc --
+distance //
 featured boolean
-location 
+location //
 name  ///
-photos array
-rating
-rooms array
-type
+photos array //
+rating //
+rooms array //
+type //
 __v
 _id

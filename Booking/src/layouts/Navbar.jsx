@@ -38,8 +38,8 @@ function NavbarApp(props) {
                   id="basic-nav-dropdown"
                 >
                   {ctx.currency.map((items) => (
-                    <NavDropdown.Item>
-                      <div className="d-flex justify-content-between align-items-center">
+                    <NavDropdown.Item >
+                      <div  className="d-flex justify-content-between align-items-center">
                         <span onClick={() => currencyHandler(items.currency)}>
                           {items.currency}
                         </span>

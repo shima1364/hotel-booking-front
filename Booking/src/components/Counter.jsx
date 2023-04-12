@@ -4,7 +4,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { DataContext } from "../context/dataContext";
 
-export default function (props) {
+export default function Counter (props) {
   const ctx = useContext(DataContext);
   const [disable, setDisable] = useState(false);
 

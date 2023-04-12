@@ -21,6 +21,7 @@ function SelectLocation(props) {
         placeholder="Where are you going?"
         ref={Location}
         onChange={DestinationHandler}
+        value={ctx.Destination}
       />
     </div>
   );
