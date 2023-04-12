@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css"
 import "../App.css"
+import { Icon } from "leaflet";
 
 
 
 const Map = ({ hotels }) => {
  
  
-  // const customIcon = new Icon(
-  //   {iconUrl:require("../dist/img/placeholder.png"),
-  //   iconSize: [36,36]
-  //   }
-  // )
+  const customIcon = new Icon(
+    {iconUrl:require("../dist/img/placeholder (2).png"),
+    iconSize: [36,36]
+    }
+  )
   const [position, setPosition] = useState([]);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const Map = ({ hotels }) => {
         attribution="Map data &copy; OpenStreetMap contributors"
       />
       {position.map(marker => (
-        <Marker  position={[marker.lat, marker.lng]}>
+        <Marker  position={[marker.lat, marker.lng]} icon={customIcon}>
         </Marker>
       ))}
     </MapContainer>
