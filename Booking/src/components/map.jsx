@@ -7,26 +7,24 @@ import { Icon } from "leaflet";
 
 
 const Map = ({ hotels }) => {
- 
- 
   const customIcon = new Icon(
     {iconUrl:require("../dist/img/placeholder (2).png"),
     iconSize: [36,36]
     }
   )
   const [position, setPosition] = useState([]);
+  const [mapCenter, setMapCenter] = useState([0,0]);
 
   useEffect(() => {
     setPosition(hotels.map((item)=>item.location));
+    if (position && position.length > 0)setMapCenter([position[0].lat, position[0].lng])
+   
   }, [hotels]);
 
-  // const positionCenter= [position[0].lat,position[0].lng]
-
-  // console.log([position[0].lat,position[0].lng]);
 
   return (
     <div>
-     <MapContainer center={[52.3668, 4.9044]} zoom={13}>
+     <MapContainer center={mapCenter} zoom={18}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="Map data &copy; OpenStreetMap contributors"

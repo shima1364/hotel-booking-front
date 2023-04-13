@@ -1,3 +1,5 @@
+import React from 'react';
+import moment from 'moment';
 import "./hotel.css";
 import Header from "../layouts/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,9 +9,10 @@ import {
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState , useEffect} from "react";
+import { useState , useEffect, useContext} from "react";
 import NavbarApp from "../layouts/Navbar";
 import { useLocation } from "react-router-dom";
+import { DataContext } from "../context/dataContext";
 
 
 
@@ -17,8 +20,33 @@ const Hotel = () => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
   const [hotelPost, setHotelPost]= useState([]);
+  const ctx = useContext(DataContext);
   const location = useLocation();
   const id = location.pathname.split("/")[2];
+
+
+  function DateDifference({ startDate, endDate }) {
+    try {
+      const start = moment(startDate, 'YYYY-MM-DD');
+      const end = moment(endDate, 'YYYY-MM-DD');
+  
+      if (!start.isValid() || !end.isValid()) {
+        throw new Error('Invalid date format');
+      }
+  
+      const days = end.diff(start, 'days');
+  
+      return (days
+      );
+    } catch (error) {
+      console.error('Error calculating date difference:', error);
+      return null;
+    }
+  }
+
+  const vacation = DateDifference({startDate:ctx.StartDate, endDate:ctx.FinalDate});
+  console.log(ctx.StartDate, ctx.FinalDate)
+  
   useEffect(() => {
     const getEntryById = async () => {
         try {
@@ -110,13 +138,13 @@ const Hotel = () => {
               </p>
             </div>
             <div className="hotelDetailsPrice">
-              <h1>Perfect for a 9-night stay!</h1>
+              <h1>Perfect for a {vacation}-night stay!</h1>
               <span>
                 Located in the real heart of Krakow, this property has an
                 excellent location score of 9.8!
               </span>
               <h2>
-                <b>$945</b> (9 nights)
+                <b>$945</b> ({vacation} nights)
               </h2>
               <button>Reserve or Book Now!</button>
             </div>

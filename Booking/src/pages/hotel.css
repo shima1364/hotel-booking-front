@@ -59,7 +59,9 @@
   }
   
   .hotelImg {
-    width: 100%;
+    width: 350px;
+    height: 300px;
+    padding: 2px;
     object-fit: cover;
     cursor: pointer;
   }
