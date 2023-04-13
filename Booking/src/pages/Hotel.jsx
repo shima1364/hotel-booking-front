@@ -46,6 +46,7 @@ const Hotel = () => {
 
   const vacation = DateDifference({startDate:ctx.StartDate, endDate:ctx.FinalDate});
   console.log(ctx.StartDate, ctx.FinalDate)
+  console.log(ctx.cheapestPrice)
   
   useEffect(() => {
     const getEntryById = async () => {
@@ -53,7 +54,6 @@ const Hotel = () => {
             const response = await fetch(`http://localhost:8800/api/hotels/${id}`);
             const entries = await response.json();
             setHotelPost(entries);
-            console.log(entries)
           } catch (error) {
             console.error(error);
           }
@@ -144,7 +144,7 @@ const Hotel = () => {
                 excellent location score of 9.8!
               </span>
               <h2>
-                <b>$945</b> ({vacation} nights)
+              <b>${vacation * hotelPost.cheapestPrice}</b> ({vacation} nights)
               </h2>
               <button>Reserve or Book Now!</button>
             </div>
