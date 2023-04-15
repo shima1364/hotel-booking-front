@@ -20,7 +20,7 @@ async function fetchData() {
 
 useEffect(() => {
   fetchData();
-});
+},[]);
 
 
   return (

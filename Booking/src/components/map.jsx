@@ -19,7 +19,9 @@ const Map = ({ hotels }) => {
     setPosition(hotels.map((item)=>item.location));
     if (position && position.length > 0)setMapCenter([position[0].lat, position[0].lng])
    
-  }, [hotels]);
+  }, []);
+  console.log(hotels);
+  console.log(mapCenter);
 
 
   return (
