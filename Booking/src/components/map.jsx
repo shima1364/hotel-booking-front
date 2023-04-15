@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css"
 import "../App.css"
 import { Icon } from "leaflet";
-
-
+import { DataContext } from "../context/dataContext";
 
 const Map = ({ hotels }) => {
   const customIcon = new Icon(
@@ -14,19 +13,24 @@ const Map = ({ hotels }) => {
   )
   const [position, setPosition] = useState([]);
   const [mapCenter, setMapCenter] = useState([0,0]);
-
+  const ctx = useContext(DataContext);
   useEffect(() => {
     setPosition(hotels.map((item)=>item.location));
-    if (position && position.length > 0)setMapCenter([position[0].lat, position[0].lng])
+  }, [ctx]);
+
+  useEffect(() => {
+    if (position && position.length > 0) {
+      const lat = position.reduce((sum, item) => sum + item.lat, 0) / position.length;
+      const lng = position.reduce((sum, item) => sum + item.lng, 0) / position.length;
+      setMapCenter([lat, lng]);
+    }
    
-  }, []);
-  console.log(hotels);
-  console.log(mapCenter);
-
-
+  }, [position]);
+  
   return (
-    <div>
-     <MapContainer center={[52.36, 4.8908]} zoom={13}key={hotels._id}>
+    <>
+      {mapCenter[0] !== 0 ? (
+        <MapContainer center={mapCenter} zoom={13}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="Map data &copy; OpenStreetMap contributors"
@@ -36,9 +40,10 @@ const Map = ({ hotels }) => {
         </Marker>
       ))}
     </MapContainer>
-    </div>
+      ): null}
+    </>
   );
-  
+ 
 };
 
 export default Map;
