@@ -40,9 +40,9 @@ export default function Hotels(props) {
 
 
   useEffect(() => {
-    ctx.setHotels(ctx.HotelAPI.filter((items) => items.city === ctx.Destination && (Type === undefined ? true : items.type === Type) ));
-  }, [ctx.Destination, ctx.HotelAPI,ctx.Type]);
-
+    const filteredHotels = ctx.HotelAPI.filter((item) => item.city === ctx.Destination && (Type === undefined ? true : item.type === Type));
+    ctx.setHotels(filteredHotels);
+  }, [ctx.Destination, ctx.HotelAPI, Type]);
 
   const navigateToHotels = useNavigate();
 
@@ -58,9 +58,9 @@ export default function Hotels(props) {
 
     navigateToHotels("/hotels");
   };
-  const filterdItem=(item)=>{
-    setType(item)
-  }
+  const filterdItem = (type) => {
+    setType(type);
+  };
   console.log(ctx.hotels);
 
   return (

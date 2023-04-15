@@ -26,7 +26,7 @@ const Map = ({ hotels }) => {
 
   return (
     <div>
-     <MapContainer center={mapCenter} zoom={18}>
+     <MapContainer center={[52.36, 4.8908]} zoom={18}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="Map data &copy; OpenStreetMap contributors"

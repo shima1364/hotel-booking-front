@@ -5,38 +5,36 @@ import Form from "react-bootstrap/Form";
 
 
 function Filter(props) {
-    const inputRef = useRef()
+  const inputRef = useRef();
   const ctx = useContext(DataContext);
-  const [types, settypes] = useState();
   const [uniqueTypes, setUniqueTypes] = useState([]);
 
- 
-
   useEffect(() => {
-    settypes(ctx.HotelAPI.map((items) => items.type));
+    const types = ctx.HotelAPI.map((items) => items.type);
     setUniqueTypes([...new Set(types)]);
-  }, [ctx.HotelAPI, types,uniqueTypes]);
-  
+  }, [ctx.HotelAPI]);
 
-  const handlerTaggle = (item,index) => {
-    props.handleFilter(item)
-    console.log(index);
+  const handlerToggle = (item) => {
+    props.handleFilter(item);
   };
 
   return (
     <Form className="mt-5 border px-3 py-2 rounded-4">
       <h6 className="mb-3">Popular Filters</h6>
-      {uniqueTypes.map((items,index) => (
+      {uniqueTypes.map((item, index) => (
         <Form.Check
-          onChange={() => handlerTaggle(items,index)}
+          key={index}
+          onChange={() => handlerToggle(item)}
           type="switch"
-          label={items}
+          label={item}
           className="mt-2"
+          ref={inputRef}
         />
       ))}
     </Form>
   );
 }
+
 
 export default Filter;
 
