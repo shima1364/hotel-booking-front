@@ -5,9 +5,10 @@ import "../utility/sass/swiper.scss";
 import "swiper/css";
 
 function Carousel(props) {
+  console.log(props)
   return (
     <div className="bg-white py-3 mt-5 container rounded-3">
-      <h5>properties guests love</h5>
+      <h5>properties guests loves</h5>
       <Swiper
         modules={[Navigation, Scrollbar, A11y]}
         effect="fade"

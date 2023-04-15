@@ -22,6 +22,8 @@ useEffect(() => {
   fetchData();
 },[]);
 
+console.log(ctx, 'CTXXXX')
+
 
   return (
     <div>

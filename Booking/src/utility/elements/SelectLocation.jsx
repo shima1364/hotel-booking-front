@@ -10,6 +10,8 @@ function SelectLocation(props) {
   const DestinationHandler = () => {
     ctx.setDestination(Location.current.value);
   };
+
+  console.log(ctx, 'handler')
   return (
     <div className="DestParent d-flex justify-content-around">
       <span className="BedIcon">

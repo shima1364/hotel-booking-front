@@ -11,12 +11,6 @@ import HotelCard from "../utility/elements/HotelCard";
 import Map from './../components/map';
 import Filter from "../components/filter";
 
-
-
-
-
-
-
 export default function Hotels(props) {
   const [hotels, setHotels] = useState([]);
   const [Type, setType] = useState();
@@ -38,10 +32,9 @@ export default function Hotels(props) {
 
   const ctx = useContext(DataContext);
 
-
   useEffect(() => {
-    ctx.setHotels(ctx.HotelAPI.filter((items) => items.city === ctx.Destination && (Type === undefined ? true : items.type === Type) ));
-  }, [ctx.Destination, ctx.HotelAPI,ctx.Type]);
+    ctx.setHotels(ctx.HotelAPI.filter((items) => items.city.toLowerCase() === ctx.Destination.toLowerCase() && (Type === undefined ? true : items.type === Type) ));
+  }, []);
 
 
   const navigateToHotels = useNavigate();
@@ -61,8 +54,6 @@ export default function Hotels(props) {
   const filterdItem=(item)=>{
     setType(item)
   }
-  console.log(ctx.hotels);
-
   return (
     <div>
       <NavbarApp />
@@ -81,7 +72,7 @@ export default function Hotels(props) {
             </button>
           </div>
           <div className="mt-3 h-75"><Map hotels={ctx.hotels}/></div>
-          <Filter handleFilter={filterdItem}/>
+          {/* <Filter handleFilter={filterdItem}/> */}
         </div>
         <div className="col-1"></div>
         <div className="col-lg-8 col-12 mt-3">
