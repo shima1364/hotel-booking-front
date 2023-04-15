@@ -38,7 +38,7 @@ const Map = ({ hotels }) => {
     </MapContainer>
     </div>
   );
- 
+  
 };
 
 export default Map;
