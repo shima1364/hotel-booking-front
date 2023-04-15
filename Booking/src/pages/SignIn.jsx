@@ -22,7 +22,9 @@ function SignIn () {
     });
     console.log(response.data);
     setToken(response.data.token);
+    console.log(token)
     navigate("/");
+
   };
 
   return (
