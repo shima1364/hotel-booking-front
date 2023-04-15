@@ -46,7 +46,8 @@ const Hotel = () => {
 
   const vacation = DateDifference({startDate:ctx.StartDate, endDate:ctx.FinalDate});
   console.log(ctx.StartDate, ctx.FinalDate)
-  console.log(ctx.cheapestPrice)
+  const room = ctx.RoomCounter
+  
   
   useEffect(() => {
     const getEntryById = async () => {
@@ -144,7 +145,7 @@ const Hotel = () => {
                 excellent location score of 9.8!
               </span>
               <h2>
-              <b>${vacation * hotelPost.cheapestPrice}</b> ({vacation} nights)
+              <b>${room *vacation * hotelPost.cheapestPrice}</b> ( {room} Rooms & {vacation} nights)
               </h2>
               <button>Reserve or Book Now!</button>
             </div>
