@@ -13,8 +13,8 @@ import { useState , useEffect, useContext} from "react";
 import NavbarApp from "../layouts/Navbar";
 import { useLocation } from "react-router-dom";
 import { DataContext } from "../context/dataContext";
-import jwt_decode from 'jwt-decode';
-import { Link } from 'react-router-dom';
+
+import axios from "axios";
 
 
 
@@ -26,12 +26,8 @@ const Hotel = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const token = ctx.token;
-  console.log(token);
-  
-  const decodedToken = jwt_decode(token);
-  const user_id = decodedToken.sub;
-  console.log(user_id)
-
+  const userId = sessionStorage.getItem('userId');
+  console.log(userId)
 
   function DateDifference({ startDate, endDate }) {
     try {
@@ -90,15 +86,17 @@ const Hotel = () => {
   const handleClick = () => {
     ctx.setReservedHotel(id);
     const body = {
-      user: user_id,
-      hotel: hotelPost.id,
-      checkInDate: ctx.StartDate,
-      checkOutDate: ctx.FinalDate,
-      numberOfRooms: ctx.RoomCounter,
+      
+        hotelId: id,
+        checkInDate: ctx.StartDate,
+        checkOutDate:ctx.FinalDate,
+        numberOfRooms:room
+         
     }
   
-    axios.post(`http://localhost:8800/api/users/${user_id}/reservations`, JSON.stringify(body) ).then(response => {
-      console.log(response);
+    axios.post(`http://localhost:8800/api/users/${userId}/reservations`, JSON.stringify(body) )
+    .then(response => {
+     console.log(response);
       // handle response from API
     }).catch(error => {
       console.log(error);

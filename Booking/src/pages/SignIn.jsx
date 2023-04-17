@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import NavbarApp from "../layouts/Navbar";
 import axios from "axios";
-import { useContext, useState } from "react";
 import { DataContext } from "../context/dataContext";
 import { useNavigate } from "react-router-dom";
 
@@ -23,7 +22,10 @@ function SignIn () {
     console.log(response.data);
     ctx.setToken(response.data.token);
     console.log(ctx.token)
-    navigate("/");
+    const userId=response.data.userId
+    sessionStorage.setItem("userId", userId);
+    console.log(userId)
+    // navigate("/");
 
   };
 
