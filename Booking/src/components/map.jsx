@@ -16,7 +16,7 @@ const Map = ({ hotels }) => {
   const ctx = useContext(DataContext);
   useEffect(() => {
     setPosition(hotels.map((item)=>item.location));
-  }, [ctx]);
+  }, [hotels]);
 
   useEffect(() => {
     if (position && position.length > 0) {
@@ -30,7 +30,7 @@ const Map = ({ hotels }) => {
   return (
     <>
       {mapCenter[0] !== 0 ? (
-        <MapContainer center={mapCenter} zoom={13}>
+        <MapContainer center={mapCenter} zoom={13} key={hotels.id}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="Map data &copy; OpenStreetMap contributors"

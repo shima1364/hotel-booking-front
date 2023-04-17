@@ -2,16 +2,16 @@ import React from "react";
 import NavbarApp from "../layouts/Navbar";
 import axios from "axios";
 import { useContext, useState } from "react";
-import UserContext  from "../context/UserContext";
+import { DataContext } from "../context/dataContext";
 import { useNavigate } from "react-router-dom";
 
 function SignIn () {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const ctx = useContext(DataContext);
 
   const navigate = useNavigate();
 
-  // const { token, setToken } = useContext(UserContext);
   // token && navigate("/");
 
   const handleLogin = async (e) => {
@@ -21,8 +21,8 @@ function SignIn () {
       password,
     });
     console.log(response.data);
-    setToken(response.data.token);
-    console.log(token)
+    ctx.setToken(response.data.token);
+    console.log(ctx.token)
     navigate("/");
 
   };

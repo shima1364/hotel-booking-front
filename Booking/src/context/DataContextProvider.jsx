@@ -50,6 +50,8 @@ const DataContextProvider = (props) => {
   const [Destination, setDestination] = useState();
   //Hotels Filter
   const [hotels, setHotels] = useState([]);
+  const[token, setToken] = useState();
+  const [reservedHotel, setReservedHotel]= useState();
 
 
   return (
@@ -83,6 +85,10 @@ const DataContextProvider = (props) => {
         setHotelAPI,
         hotels,
         setHotels,
+        token,
+        setToken,
+        reservedHotel,
+        setReservedHotel
       }}
     >
       {props.children}

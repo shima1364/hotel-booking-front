@@ -147,7 +147,7 @@ const Hotel = () => {
               <h2>
               <b>${room *vacation * hotelPost.cheapestPrice}</b> ( {room} Rooms & {vacation} nights)
               </h2>
-              <button>Reserve or Book Now!</button>
+              <button onClick={()=>ctx.setReservedHotel(id)}>Reserve or Book Now!</button>
             </div>
           </div>
         </div>
