@@ -40,7 +40,7 @@ export default function Hotels(props) {
 
 
   useEffect(() => {
-    const filteredHotels = ctx.HotelAPI.filter((item) => item.city === ctx.Destination && (Type === undefined ? true : item.type === Type));
+    const filteredHotels = ctx.HotelAPI.filter((item) => item.city.toLowerCase() === ctx.Destination.toLowerCase() && (Type === undefined ? true : item.type === Type));
     ctx.setHotels(filteredHotels);
   }, [ctx.Destination, ctx.HotelAPI, Type]);
 
