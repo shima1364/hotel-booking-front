@@ -30,6 +30,7 @@ const Hotel = () => {
   
   const decodedToken = jwt_decode(token);
   const user_id = decodedToken.sub;
+  console.log(user_id)
 
 
   function DateDifference({ startDate, endDate }) {
@@ -86,6 +87,24 @@ const Hotel = () => {
 
     setSlideNumber(newSlideNumber)
   };
+  const handleClick = () => {
+    ctx.setReservedHotel(id);
+    const body = {
+      user: user_id,
+      hotel: hotelPost.id,
+      checkInDate: ctx.StartDate,
+      checkOutDate: ctx.FinalDate,
+      numberOfRooms: ctx.RoomCounter,
+    }
+  
+    axios.post(`http://localhost:8800/api/users/${user_id}/reservations`, JSON.stringify(body) ).then(response => {
+      console.log(response);
+      // handle response from API
+    }).catch(error => {
+      console.log(error);
+      // handle error
+    });};
+  
 
   return (
     <div>
@@ -154,8 +173,8 @@ const Hotel = () => {
               <h2>
               <b>${room *vacation * hotelPost.cheapestPrice}</b> ( {room} Rooms & {vacation} nights)
               </h2>
-              {/* <button onClick={()=>ctx.setReservedHotel(id)}>Reserve or Book Now!</button> */}
-              <Link variant="primary" to={`/reservation/${user_id}`} onClick={()=>ctx.setReservedHotel(id)}>Reserve or Book Now!</Link>
+              <button onClick={handleClick}>Reserve or Book Now!</button>
+              {/* <Link variant="primary" to={`/reservation/${user_id}`} onClick={()=>ctx.setReservedHotel(id)}>Reserve or Book Now!</Link> */}
             </div>
           </div>
         </div>
