@@ -4,6 +4,7 @@ import Register from './../pages/Register';
 import SignIn from './../pages/SignIn';
 import Hotels from "../pages/Hotels";
 import Hotel from "../pages/Hotel";
+import Reservation from "../pages/Reservation";
 
 
 function Router(props) {
@@ -14,6 +15,7 @@ function Router(props) {
             <Route path="/signin" element={<SignIn/>}/>
             <Route path="/hotels" element={<Hotels/>}/>
             <Route path="/hotels/:id" element={<Hotel/>}/>
+            <Route path="/reservation/:id" element={<Reservation/>}/>
         </Routes>
     );
 }

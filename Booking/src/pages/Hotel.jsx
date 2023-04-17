@@ -13,6 +13,8 @@ import { useState , useEffect, useContext} from "react";
 import NavbarApp from "../layouts/Navbar";
 import { useLocation } from "react-router-dom";
 import { DataContext } from "../context/dataContext";
+import jwt_decode from 'jwt-decode';
+import { Link } from 'react-router-dom';
 
 
 
@@ -23,6 +25,11 @@ const Hotel = () => {
   const ctx = useContext(DataContext);
   const location = useLocation();
   const id = location.pathname.split("/")[2];
+  const token = ctx.token;
+  console.log(token);
+  
+  const decodedToken = jwt_decode(token);
+  const user_id = decodedToken.sub;
 
 
   function DateDifference({ startDate, endDate }) {
@@ -147,7 +154,8 @@ const Hotel = () => {
               <h2>
               <b>${room *vacation * hotelPost.cheapestPrice}</b> ( {room} Rooms & {vacation} nights)
               </h2>
-              <button onClick={()=>ctx.setReservedHotel(id)}>Reserve or Book Now!</button>
+              {/* <button onClick={()=>ctx.setReservedHotel(id)}>Reserve or Book Now!</button> */}
+              <Link variant="primary" to={`/reservation/${user_id}`} onClick={()=>ctx.setReservedHotel(id)}>Reserve or Book Now!</Link>
             </div>
           </div>
         </div>

@@ -1,16 +1,16 @@
-import jwt from 'jsonwebtoken';
 import React, { useEffect } from "react";
 import NavbarApp from "../layouts/Navbar";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { DataContext } from "../context/dataContext";
+import jwt_decode from 'jwt-decode';
 
 function Reservation() {
   const ctx = useContext(DataContext);
   const HotelId = ctx.reservedHotel;
   const token = ctx.token;
-  const decoded_token = jwt.decode(token, verify=false);
-  const user_id = decoded_token['userId'];
+  const decodedToken = jwt_decode(token);
+  const user_id = decodedToken.sub;
 
   useEffect(() => {
     axios.post(`http://localhost:8800/api/users/${user_id}/reservations`, {
@@ -31,7 +31,7 @@ function Reservation() {
   return (
     <>
       <NavbarApp />
-      {/* your JSX code here */}
+      
     </>
   );
 }
