@@ -6,6 +6,7 @@ import { DataContext } from "../context/dataContext";
 import LoginButtons from "../utility/elements/btn";
 import "../utility/sass/Navbar.scss";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 function NavbarApp(props) {
   const ctx = useContext(DataContext);
@@ -19,12 +20,15 @@ function NavbarApp(props) {
   return (
     <>
       <Navbar bg="primary" expand="lg">
-        <div
-          className="container d-flex flex-column flex-lg-row align-items-start"
-        >
+      <ToastContainer />
+        <div className="container d-flex flex-column flex-lg-row align-items-start">
           <div className="d-flex flex-row">
             <div>
-              <Navbar.Brand className="fs-4 fw-bold text-white"><Link className="text-white" to='/'>Booking.com</Link></Navbar.Brand>
+              <Navbar.Brand className="fs-4 fw-bold text-white">
+                <Link className="text-white" to="/">
+                  Booking.com
+                </Link>
+              </Navbar.Brand>
             </div>
             <div>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -38,8 +42,8 @@ function NavbarApp(props) {
                   id="basic-nav-dropdown"
                 >
                   {ctx.currency.map((items) => (
-                    <NavDropdown.Item >
-                      <div  className="d-flex justify-content-between align-items-center">
+                    <NavDropdown.Item>
+                      <div className="d-flex justify-content-between align-items-center">
                         <span onClick={() => currencyHandler(items.currency)}>
                           {items.currency}
                         </span>
@@ -55,20 +59,25 @@ function NavbarApp(props) {
                         <span onClick={() => langHandler(items.lang)}>
                           {items.lang}
                         </span>
-                        <img
-                          className="flag"
-                          src={items.flag}
-                          alt="flag"
-                        />
+                        <img className="flag" src={items.flag} alt="flag" />
                       </div>
                     </NavDropdown.Item>
                   ))}
                 </NavDropdown>
                 <div className="d-flex justify-content-evenly">
-                  <span className="ms-2"></span>
-                  <LoginButtons refrence={'register'}>Register</LoginButtons>
-                  <span className="mx-2"></span>
-                  <LoginButtons refrence={'signin'}>Sign in</LoginButtons>
+                  {!ctx.token && (
+                    <>
+                      <span className="ms-2"></span>
+                      <LoginButtons refrence={"register"}>
+                        Register
+                      </LoginButtons>
+                      <span className="mx-2"></span>
+                      <LoginButtons refrence={"signin"}>Sign in</LoginButtons>
+                    </>
+                  )}
+                  {ctx.token && (
+                    <LoginButtons onC refrence={"Logout"}>Logout</LoginButtons>
+                  )}
                 </div>
               </Nav>
             </Navbar.Collapse>
