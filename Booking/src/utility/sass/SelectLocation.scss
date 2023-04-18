@@ -6,9 +6,7 @@
 
 .DestParent {
     background-color: white;
-    width: 80%;
     padding: 0.5rem 0;
-    border-radius: 10px;
 }
 
 .DestInput {
@@ -16,4 +14,7 @@
     outline: 0 !important;
  }
 
+}
+.BedIcon {
+    transform: translateX(10px);
 }

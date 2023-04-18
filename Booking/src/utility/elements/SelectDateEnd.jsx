@@ -12,11 +12,12 @@ function SelectDateEnd(props) {
   return (
     <div>
       <input
-        className="border-0 p-2 rounded-3 w-100"
+        className="border-0 me-2 rounded-1 w-100"
         type="date"
         defaultValue={ctx.FinalDate}
         ref={FinalDate}
         onChange={FinalDateHandler}
+        style={{padding:'0.59rem 0.5rem'}}
       />
     </div>
   );

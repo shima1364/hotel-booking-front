@@ -1,5 +1,4 @@
 import { useContext, useRef } from "react";
-import "../sass/SelectDate.scss";
 import { DataContext } from "../../context/dataContext";
 
 function SelectDateStart(props) {
@@ -14,11 +13,12 @@ function SelectDateStart(props) {
   return (
     <div>
       <input
-        className="border-0 p-2 rounded-3 w-100"
+        className="border-0 rounded-1 me-2 w-100"
         type="date"
         defaultValue={ctx.StartDate}
         ref={StartDate}
         onChange={StartDateHandler}
+        style={{padding:'0.59rem 0.5rem'}}
       />
     </div>
   );

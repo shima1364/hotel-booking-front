@@ -69,8 +69,8 @@ export default function Hotels(props) {
       <div className="container mt-4 d-flex flex-column flex-lg-row">
         <div className="d-flex col-12 col-lg-3 flex-column">
           <div
-            className=" bg-danger py-3 ps-2 d-flex justify-content-evenly rounded-4 align-items-start flex-column"
-            style={{ height: "50vh" }}
+            className="py-3 px-2 rounded-4 d-flex flex-column justify-content-evenly"
+            style={{ height: "50vh",backgroundColor: "#FFB700" }}
           >
             <SelectLocation />
             <SelectDateStart />

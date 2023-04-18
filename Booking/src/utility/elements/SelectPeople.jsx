@@ -8,7 +8,7 @@ function SelectPeople(props) {
   const ctx = useContext(DataContext);
   return (
     <Dropdown autoClose="outside">
-      <Dropdown.Toggle variant="light" id="dropdown-autoclose-outside">
+      <Dropdown.Toggle variant="light" id="dropdown-autoclose-outside" className="rounded-1 py-2 me-2 w-100">
         {ctx.AdultCounter} Adult . {ctx.ChildrenCounter} Children .{" "}
         {ctx.RoomCounter} Room
       </Dropdown.Toggle>

@@ -11,14 +11,14 @@ function SelectLocation(props) {
     ctx.setDestination(Location.current.value);
   };
   return (
-    <div className="DestParent d-flex justify-content-around">
+    <div className="DestParent d-flex justify-content-around rounded-1 me-2 w-100">
       <span className="BedIcon">
         <FontAwesomeIcon icon={faBed} />
       </span>
       <input
-        className="border-0 rounded-3 DestInput"
+        className="border-0 ps-4 DestInput"
         type="text"
-        placeholder="Where are you going?"
+        placeholder="Destination"
         ref={Location}
         onChange={DestinationHandler}
         value={ctx.Destination}

@@ -6,6 +6,7 @@ import SelectPeople from "./../utility/elements/SelectPeople";
 import Modal from "react-bootstrap/Modal";
 import { DataContext } from "../context/dataContext";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 function MyVerticallyCenteredModal(props) {
   return (
@@ -35,17 +36,23 @@ function Search(props) {
       Children: ctx.ChildrenCounter,
       Room: ctx.RoomCounter,
     };
-
-    navigate("/hotels");
+    if (ctx.Destination === undefined ) {
+      toast.error("Please enter your destination", {
+        position: toast.POSITION.TOP_LEFT,
+      });
+    } else {
+      navigate("/hotels");
+    }
   };
 
   return (
     <div className="container mt-3 d-flex d-lg-flex justify-content-center align-items-center">
+      <ToastContainer />
       <div
         className="py-2 ps-3 ps-lg-0 align-items-start align-items-lg-center rounded-3 mb-3 d-flex flex-column flex-lg-row justify-content-evenly col-12"
-        style={{ backgroundColor: "#FFB700" }}
+        style={{ backgroundColor: "#FFB700", width: "70%" }}
       >
-        <div className="w-25">
+        <div className="">
           <SelectLocation />
         </div>
         <div className="my-2">
@@ -57,11 +64,9 @@ function Search(props) {
         <div className="my-2">
           <SelectPeople />
         </div>
-        <div className="d-flex justify-content-end">
-          <button onClick={sendDataHandler} className="btn btn-primary">
-            Search
-          </button>
-        </div>
+        <button onClick={sendDataHandler} className="btn btn-primary py-2">
+          Search
+        </button>
       </div>
     </div>
   );
