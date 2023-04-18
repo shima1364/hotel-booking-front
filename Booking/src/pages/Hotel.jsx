@@ -14,6 +14,7 @@ import NavbarApp from "../layouts/Navbar";
 import { useLocation } from "react-router-dom";
 import { DataContext } from "../context/dataContext";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 const Hotel = () => {
   const [slideNumber, setSlideNumber] = useState(0);
@@ -80,7 +81,8 @@ const Hotel = () => {
     setOpen(true);
   };
 
-  const handleClick = () => {
+  const handleClick = async (e) => {
+    e.preventDefault();
     ctx.setReservedHotel(hotelId);
 
     setHotelReservation({
@@ -91,7 +93,7 @@ const Hotel = () => {
       hotelName: hotelPost.name,
     });
     console.log(hotelReservation);
-    axios
+    const response = await axios
       .post(
         `http://localhost:8800/api/users/${userId}/reservations`,
         hotelReservation
@@ -156,9 +158,7 @@ const Hotel = () => {
           </div>
         )}
         <div className="hotelWrapper">
-          <button className="bookNow" onClick={handleClick}>
-            Reserve or Book Now!
-          </button>
+          <Link variant="primary" to={`/reservation`}>hostory</Link>
           <h1 className="hotelTitle">{hotelPost.name}</h1>
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />
