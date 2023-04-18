@@ -172,14 +172,14 @@ const Hotel = () => {
             a free airport taxi
           </span>
           <div className="hotelImages container">
-            <div className="row d-flex flex-row">
+            <div className="row d-flex flex-lg-row flex-column">
               {hotelPost.photos?.map((photo, i) => (
                 <img
                   key={i}
                   onClick={() => handleOpen(i)}
                   src={photo}
                   alt=""
-                  className="mt-3 hotelImg w-50"
+                  className="mt-3 hotelImg col-12 col-lg-6"
                 />
               ))}
             </div>
@@ -202,10 +202,10 @@ const Hotel = () => {
                 Located in the real heart of Krakow, this property has an
                 excellent location score of 9.8!
               </span>
-              <h2>
+              <h6>
                 <b>${room * vacation * hotelPost.cheapestPrice}</b> ( {room}{" "}
                 Rooms & {vacation} nights)
-              </h2>
+              </h6>
               <button onClick={handleClick}>Reserve or Book Now!</button>
               {/* <Link variant="primary" to={`/reservation/${user_id}`} onClick={()=>ctx.setReservedHotel(id)}>Reserve or Book Now!</Link> */}
             </div>
