@@ -3,7 +3,6 @@ import SelectLocation from "./../utility/elements/SelectLocation";
 import SelectDateStart from "./../utility/elements/SelectDateStart";
 import SelectDateEnd from "./../utility/elements/SelectDateEnd";
 import SelectPeople from "./../utility/elements/SelectPeople";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { DataContext } from "../context/dataContext";
 import { useNavigate } from "react-router-dom";

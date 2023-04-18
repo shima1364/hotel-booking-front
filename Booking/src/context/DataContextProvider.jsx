@@ -50,7 +50,9 @@ const DataContextProvider = (props) => {
   const [Destination, setDestination] = useState();
   //Hotels Filter
   const [hotels, setHotels] = useState([]);
+  //Token
   const[token, setToken] = useState();
+  //reservation
   const [reservedHotel, setReservedHotel]= useState();
 
 
