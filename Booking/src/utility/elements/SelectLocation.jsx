@@ -11,7 +11,7 @@ function SelectLocation(props) {
     ctx.setDestination(Location.current.value);
   };
   return (
-    <div className="DestParent d-flex justify-content-around rounded-1 me-2 w-100">
+    <div className="DestParent d-flex align-items-center rounded-1 me-2 w-100">
       <span className="BedIcon">
         <FontAwesomeIcon icon={faBed} />
       </span>

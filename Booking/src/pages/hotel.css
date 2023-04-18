@@ -59,9 +59,6 @@
   }
   
   .hotelImg {
-    width: 350px;
-    height: 300px;
-    padding: 2px;
     object-fit: cover;
     cursor: pointer;
   }
@@ -112,12 +109,12 @@
   }
   
   .slider{
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.613);
+    background-color: transparent;
     z-index: 999;
     display: flex;
     align-items: center;

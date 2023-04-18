@@ -1,115 +1,128 @@
-import React from 'react';
-import moment from 'moment';
+import React from "react";
+import moment from "moment";
 import "./hotel.css";
 import Header from "../layouts/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleArrowLeft,
-  faCircleArrowRight, 
+  faCircleArrowRight,
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState , useEffect, useContext} from "react";
+import { useState, useEffect, useContext } from "react";
 import NavbarApp from "../layouts/Navbar";
 import { useLocation } from "react-router-dom";
 import { DataContext } from "../context/dataContext";
-
 import axios from "axios";
-
-
 
 const Hotel = () => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
-  const [hotelPost, setHotelPost]= useState([]);
+  const [hotelPost, setHotelPost] = useState([]);
   const ctx = useContext(DataContext);
   const location = useLocation();
   const hotelId = location.pathname.split("/")[2];
   const token = ctx.token;
-  const userId = sessionStorage.getItem('userId');
+  const userId = sessionStorage.getItem("userId");
   console.log(userId);
   console.log(hotelId);
   const [hotelReservation, setHotelReservation] = useState({
     hotelId: "",
     checkInDate: "",
-    checkOutDate:"",
-    numberOfRooms:"",
-    hotelName:""
-    });
+    checkOutDate: "",
+    numberOfRooms: "",
+    hotelName: "",
+  });
 
   function DateDifference({ startDate, endDate }) {
     try {
-      const start = moment(startDate, 'YYYY-MM-DD');
-      const end = moment(endDate, 'YYYY-MM-DD');
-  
+      const start = moment(startDate, "YYYY-MM-DD");
+      const end = moment(endDate, "YYYY-MM-DD");
+
       if (!start.isValid() || !end.isValid()) {
-        throw new Error('Invalid date format');
+        throw new Error("Invalid date format");
       }
-  
-      const days = end.diff(start, 'days');
-  
-      return (days
-      );
+
+      const days = end.diff(start, "days");
+
+      return days;
     } catch (error) {
-      console.error('Error calculating date difference:', error);
+      console.error("Error calculating date difference:", error);
       return null;
     }
   }
 
-  const vacation = DateDifference({startDate:ctx.StartDate, endDate:ctx.FinalDate});
-  console.log(ctx.StartDate, ctx.FinalDate)
-  const room = ctx.RoomCounter
-  
-  
+  const vacation = DateDifference({
+    startDate: ctx.StartDate,
+    endDate: ctx.FinalDate,
+  });
+  console.log(ctx.StartDate, ctx.FinalDate);
+  const room = ctx.RoomCounter;
+
   useEffect(() => {
     const getEntryById = async () => {
-        try {
-            const response = await fetch(`http://localhost:8800/api/hotels/${hotelId}`);
-            const entries = await response.json();
-            setHotelPost(entries);
-          } catch (error) {
-            console.error(error);
-          }
+      try {
+        const response = await fetch(
+          `http://localhost:8800/api/hotels/${hotelId}`
+        );
+        const entries = await response.json();
+        setHotelPost(entries);
+      } catch (error) {
+        console.error(error);
+      }
     };
-    getEntryById()
-  }, [hotelId])
-  console.log(hotelPost)
-  
+    getEntryById();
+  }, [hotelId]);
+  console.log(hotelPost);
 
   const handleOpen = (i) => {
     setSlideNumber(i);
     setOpen(true);
   };
 
+  const handleClick = () => {
+    ctx.setReservedHotel(hotelId);
+
+    setHotelReservation({
+      hotelId: hotelId,
+      checkInDate: ctx.StartDate,
+      checkOutDate: ctx.FinalDate,
+      numberOfRooms: room,
+      hotelName: hotelPost.name,
+    });
+    console.log(hotelReservation);
+    axios
+      .post(
+        `http://localhost:8800/api/users/${userId}/reservations`,
+        hotelReservation
+      )
+      .then((response) => {
+        console.log(response);
+        // handle response from API
+      })
+      .catch((error) => {
+        console.log(error);
+        // handle error
+      });
+  };
+
   const handleMove = (direction) => {
     let newSlideNumber;
 
-    if (direction === "l") {
-      newSlideNumber = slideNumber === 0 ? 4 : slideNumber - 1;
+    if (direction === "1") {
+      newSlideNumber =
+        slideNumber === 0
+          ? Number(hotelPost.photos.length) - 1
+          : slideNumber - 1;
     } else {
-      newSlideNumber = slideNumber === 4 ? 0 : slideNumber + 1;
+      newSlideNumber =
+        slideNumber === Number(hotelPost.photos.length) - 1
+          ? 0
+          : slideNumber + 1;
     }
 
-    setSlideNumber(newSlideNumber)
+    setSlideNumber(newSlideNumber);
   };
-  const handleClick = () => {
-    ctx.setReservedHotel(hotelId);
-    
-    setHotelReservation({ hotelId: hotelId,
-      checkInDate: ctx.StartDate,
-      checkOutDate:ctx.FinalDate,
-      numberOfRooms:room,
-      hotelName: hotelPost.name});
-      console.log(hotelReservation);
-    axios.post(`http://localhost:8800/api/users/${userId}/reservations`, hotelReservation )
-    .then(response => {
-     console.log(response);
-      // handle response from API
-    }).catch(error => {
-      console.log(error);
-      // handle error
-    });};
-  
 
   return (
     <div>
@@ -129,7 +142,11 @@ const Hotel = () => {
               onClick={() => handleMove("l")}
             />
             <div className="sliderWrapper">
-              <img src={hotelPost.photos[slideNumber].src} alt="" className="sliderImg" />
+              <img
+                src={hotelPost.photos[slideNumber]}
+                alt=""
+                className="sliderImg"
+              />
             </div>
             <FontAwesomeIcon
               icon={faCircleArrowRight}
@@ -139,7 +156,9 @@ const Hotel = () => {
           </div>
         )}
         <div className="hotelWrapper">
-          <button className="bookNow">Reserve or Book Now!</button>
+          <button className="bookNow" onClick={handleClick}>
+            Reserve or Book Now!
+          </button>
           <h1 className="hotelTitle">{hotelPost.name}</h1>
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />
@@ -149,24 +168,32 @@ const Hotel = () => {
             Excellent location – {hotelPost.distance} from center
           </span>
           <span className="hotelPriceHighlight">
-            Book a stay over ${hotelPost.cheapestPrice} at this property and get a free airport taxi
+            Book a stay over ${hotelPost.cheapestPrice} at this property and get
+            a free airport taxi
           </span>
-          <div className="hotelImages">
-            {hotelPost.photos?.map((photo, i) => (
-              <div className="hotelImgWrapper" key={i}>
+          <div className="hotelImages container">
+            <div className="row d-flex flex-row">
+              {hotelPost.photos?.map((photo, i) => (
                 <img
+                  key={i}
                   onClick={() => handleOpen(i)}
                   src={photo}
                   alt=""
-                  className="hotelImg"
+                  className="mt-3 hotelImg w-50"
                 />
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
           <div className="hotelDetails">
             <div className="hotelDetailsTexts">
               <h1 className="hotelTitle">Stay in the heart of City</h1>
               <p className="hotelDesc">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel,
+                cum blanditiis. Corrupti qui esse id, quaerat voluptatibus fugit
+                alias possimus quae cupiditate repudiandae in at eius assumenda
+                minus sit a, minima officiis velit. Qui dolorum laudantium quas
+                reiciendis tempora molestiae nihil veniam. Animi, culpa
+                inventore alias soluta sapiente sit nisi.
               </p>
             </div>
             <div className="hotelDetailsPrice">
@@ -176,7 +203,8 @@ const Hotel = () => {
                 excellent location score of 9.8!
               </span>
               <h2>
-              <b>${room *vacation * hotelPost.cheapestPrice}</b> ( {room} Rooms & {vacation} nights)
+                <b>${room * vacation * hotelPost.cheapestPrice}</b> ( {room}{" "}
+                Rooms & {vacation} nights)
               </h2>
               <button onClick={handleClick}>Reserve or Book Now!</button>
               {/* <Link variant="primary" to={`/reservation/${user_id}`} onClick={()=>ctx.setReservedHotel(id)}>Reserve or Book Now!</Link> */}
