@@ -24,10 +24,18 @@ const Hotel = () => {
   const [hotelPost, setHotelPost]= useState([]);
   const ctx = useContext(DataContext);
   const location = useLocation();
-  const id = location.pathname.split("/")[2];
+  const hotelId = location.pathname.split("/")[2];
   const token = ctx.token;
   const userId = sessionStorage.getItem('userId');
-  console.log(userId)
+  console.log(userId);
+  console.log(hotelId);
+  const [hotelReservation, setHotelReservation] = useState({
+    hotelId: "",
+    checkInDate: "",
+    checkOutDate:"",
+    numberOfRooms:"",
+    hotelName:""
+    });
 
   function DateDifference({ startDate, endDate }) {
     try {
@@ -56,7 +64,7 @@ const Hotel = () => {
   useEffect(() => {
     const getEntryById = async () => {
         try {
-            const response = await fetch(`http://localhost:8800/api/hotels/${id}`);
+            const response = await fetch(`http://localhost:8800/api/hotels/${hotelId}`);
             const entries = await response.json();
             setHotelPost(entries);
           } catch (error) {
@@ -64,7 +72,8 @@ const Hotel = () => {
           }
     };
     getEntryById()
-  }, [id])
+  }, [hotelId])
+  console.log(hotelPost)
   
 
   const handleOpen = (i) => {
@@ -84,17 +93,15 @@ const Hotel = () => {
     setSlideNumber(newSlideNumber)
   };
   const handleClick = () => {
-    ctx.setReservedHotel(id);
-    const body = {
-      
-        hotelId: id,
-        checkInDate: ctx.StartDate,
-        checkOutDate:ctx.FinalDate,
-        numberOfRooms:room
-         
-    }
-  
-    axios.post(`http://localhost:8800/api/users/${userId}/reservations`, JSON.stringify(body) )
+    ctx.setReservedHotel(hotelId);
+    
+    setHotelReservation({ hotelId: hotelId,
+      checkInDate: ctx.StartDate,
+      checkOutDate:ctx.FinalDate,
+      numberOfRooms:room,
+      hotelName: hotelPost.name});
+      console.log(hotelReservation);
+    axios.post(`http://localhost:8800/api/users/${userId}/reservations`, hotelReservation )
     .then(response => {
      console.log(response);
       // handle response from API
