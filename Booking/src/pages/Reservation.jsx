@@ -1,7 +1,10 @@
 import React from "react";
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect} from "react";
 import NavbarApp from "../layouts/Navbar";
+import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom';
+
 
 
 const ReservationHistory = () => {
@@ -31,6 +34,17 @@ const ReservationHistory = () => {
   return (
     <div>
       <NavbarApp />
+      {userHistory.map((items) => (
+      <Card style={{ width: '18rem' }} key={items.id}>
+      <Card.Body>
+        <Card.Title>{items.hotelName}</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">{items.numberOfRooms}</Card.Subtitle>
+        <Card.Text>
+          your resevation from {items.checkInDate} to {items.checkOutDate}  was complited
+        </Card.Text>
+        <Link to={`/hotels/${items.hotel}`}>Card Link</Link>
+      </Card.Body>
+    </Card>))}
     
     </div>
   );
