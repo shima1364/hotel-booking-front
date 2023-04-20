@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect, useContext } from "react";
 import NavbarApp from "../layouts/Navbar";
-import { useLocation, useNavigate } from "react-router-dom";
+import { json, useLocation, useNavigate } from "react-router-dom";
 import { DataContext } from "../context/dataContext";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -25,19 +25,18 @@ const Hotel = () => {
   const location = useLocation();
   const hotelId = location.pathname.split("/")[2];
   const token = ctx.token;
-  const userId = sessionStorage.getItem("userId");
+  const [user_Id, setUser_Id]= useState();
   const navigateToReservation = useNavigate();
   const navigateToSignin = useNavigate();
-  console.log(userId);
   console.log(hotelId);
-  const [hotelReservation, setHotelReservation] = useState({
-    hotelId: "",
-    checkInDate: "",
-    checkOutDate: "",
-    numberOfRooms: "",
-    hotelName: "",
-  });
-  const navigateToReservations = useNavigate();
+  // const [hotelReservation, setHotelReservation] = useState({
+  //   hotelId: "",
+  //   checkInDate: "",
+  //   checkOutDate: "",
+  //   numberOfRooms: "",
+  //   hotelName: "",
+  // });
+   
 
   function DateDifference({ startDate, endDate }) {
     try {
@@ -65,6 +64,7 @@ const Hotel = () => {
   const room = ctx.RoomCounter;
 
   useEffect(() => {
+    setUser_Id (sessionStorage.getItem("userId"));
     const getEntryById = async () => {
       try {
         const response = await fetch(
@@ -95,18 +95,19 @@ const Hotel = () => {
         navigateToSignin("/signin");
       }, 5000);
     } else {
-      setHotelReservation({
+     const body= {
         hotelId: hotelId,
         checkInDate: ctx.StartDate,
         checkOutDate: ctx.FinalDate,
         numberOfRooms: room,
         hotelName: hotelPost.name,
-      });
+      };
       console.log(hotelReservation);
       const response = await axios
         .post(
-          `http://localhost:8800/api/users/${userId}/reservations`,
-          hotelReservation
+          `http://localhost:8800/api/users/${user_Id}/reservations`,
+          JSON.stringify(body)
+
         )
         .then((response) => {
           console.log(response);
@@ -121,6 +122,7 @@ const Hotel = () => {
           // handle error
         });
      ;
+      
       setTimeout(() => {
         navigateToReservation("/reservation");
       }, 5000);

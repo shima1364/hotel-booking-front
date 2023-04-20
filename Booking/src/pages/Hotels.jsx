@@ -18,7 +18,6 @@ import Filter from "../components/filter";
 
 
 export default function Hotels(props) {
-  const [hotels, setHotels] = useState([]);
   const [Type, setType] = useState();
   // function MyVerticallyCenteredModal(props) {
   //   return (
