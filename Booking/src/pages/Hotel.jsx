@@ -11,10 +11,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect, useContext } from "react";
 import NavbarApp from "../layouts/Navbar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { DataContext } from "../context/dataContext";
 import axios from "axios";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 const Hotel = () => {
   const [slideNumber, setSlideNumber] = useState(0);
@@ -25,6 +26,8 @@ const Hotel = () => {
   const hotelId = location.pathname.split("/")[2];
   const token = ctx.token;
   const userId = sessionStorage.getItem("userId");
+  const navigateToReservation = useNavigate();
+  const navigateToSignin = useNavigate();
   console.log(userId);
   console.log(hotelId);
   const [hotelReservation, setHotelReservation] = useState({
@@ -86,27 +89,40 @@ const Hotel = () => {
     e.preventDefault();
     ctx.setReservedHotel(hotelId);
 
-    setHotelReservation({
-      hotelId: hotelId,
-      checkInDate: ctx.StartDate,
-      checkOutDate: ctx.FinalDate,
-      numberOfRooms: room,
-      hotelName: hotelPost.name,
-    });
-    console.log(hotelReservation);
-    const response = await axios
-      .post(
-        `http://localhost:8800/api/users/${userId}/reservations`,
-        hotelReservation
-      )
-      .then((response) => {
-        console.log(response);
-        // handle response from API
-      })
-      .catch((error) => {
-        console.log(error);
-        // handle error
+    if (ctx.token === undefined) {
+      toast.error("Please Sign in", { position: toast.POSITION.TOP_LEFT });
+      setTimeout(() => {
+        navigateToSignin("/signin");
+      }, 5000);
+    } else {
+      setHotelReservation({
+        hotelId: hotelId,
+        checkInDate: ctx.StartDate,
+        checkOutDate: ctx.FinalDate,
+        numberOfRooms: room,
+        hotelName: hotelPost.name,
       });
+      console.log(hotelReservation);
+      const response = await axios
+        .post(
+          `http://localhost:8800/api/users/${userId}/reservations`,
+          hotelReservation
+        )
+        .then((response) => {
+          console.log(response);
+          // handle response from API
+        })
+        .catch((error) => {
+          console.log(error);
+          // handle error
+        });
+      toast.success("Your Reservation has been Successful", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      setTimeout(() => {
+        navigateToReservation("/reservation");
+      }, 5000);
+    }
   };
 
   const handleMove = (direction) => {
@@ -211,11 +227,6 @@ const Hotel = () => {
                 Rooms & {vacation} nights)
               </h6>
               <button onClick={handleClick}>Reserve or Book Now!</button>
-              {hotelReserved && (
-                 <div className="alert alert-success" role="alert">
-                        Hotel reserved successfully!
-                  </div>
-               )} 
               {/* <Link variant="primary" to={`/reservation/${user_id}`} onClick={()=>ctx.setReservedHotel(id)}>Reserve or Book Now!</Link> */}
             </div>
           </div>
