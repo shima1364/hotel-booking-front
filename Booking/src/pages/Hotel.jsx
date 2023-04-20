@@ -111,14 +111,16 @@ const Hotel = () => {
         .then((response) => {
           console.log(response);
           // handle response from API
-        })
+          toast.success("Your Reservation has been Successful", {
+            position: toast.POSITION.TOP_CENTER,
+          })
+        }
+       )
         .catch((error) => {
           console.log(error);
           // handle error
         });
-      toast.success("Your Reservation has been Successful", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+     ;
       setTimeout(() => {
         navigateToReservation("/reservation");
       }, 5000);
