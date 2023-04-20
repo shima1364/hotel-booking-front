@@ -11,12 +11,6 @@ import HotelCard from "../utility/elements/HotelCard";
 import Map from './../components/map';
 import Filter from "../components/filter";
 
-
-
-
-
-
-
 export default function Hotels(props) {
   const [Type, setType] = useState();
   // function MyVerticallyCenteredModal(props) {
@@ -37,10 +31,10 @@ export default function Hotels(props) {
 
   const ctx = useContext(DataContext);
 
-
   useEffect(() => {
     const filteredHotels = ctx.HotelAPI.filter((item) => item.city.toLowerCase() === ctx.Destination.toLowerCase() && (Type === undefined ? true : item.type === Type));
     ctx.setHotels(filteredHotels);
+    setCounter(counter + 1)
   }, [ctx.Destination, ctx.HotelAPI, Type]);
 
   const navigateToHotels = useNavigate();
@@ -60,7 +54,6 @@ export default function Hotels(props) {
   const filterdItem = (type) => {
     setType(type);
   };
-  console.log(ctx.hotels);
 
   return (
     <div>
@@ -79,8 +72,10 @@ export default function Hotels(props) {
               Search
             </button>
           </div>
-          <div className="mt-3 h-75"><Map hotels={ctx.hotels}/></div>
-          <Filter handleFilter={filterdItem}/>
+            <div className="mt-3 h-75">
+              <Map key={ctx.Destination} hotels={ctx.hotels}/>
+            </div>
+            <Filter handleFilter={filterdItem}/>
         </div>
         <div className="col-1"></div>
         <div className="col-lg-8 col-12 mt-3">

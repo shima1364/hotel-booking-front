@@ -18,6 +18,9 @@ const Map = ({ hotels }) => {
     setPosition(hotels.map((item)=>item.location));
   }, [hotels]);
 
+  console.log(position, 'POSITION')
+  console.log(mapCenter, 'POSITION')
+
   useEffect(() => {
     if (position && position.length > 0) {
       const lat = position.reduce((sum, item) => sum + item.lat, 0) / position.length;
@@ -35,8 +38,8 @@ const Map = ({ hotels }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="Map data &copy; OpenStreetMap contributors"
       />
-      {position.map(marker => (
-        <Marker  position={[marker.lat, marker.lng]} icon={customIcon}>
+      {position.map((marker) => (
+        <Marker position={[marker.lat, marker.lng]} icon={customIcon}>
         </Marker>
       ))}
     </MapContainer>

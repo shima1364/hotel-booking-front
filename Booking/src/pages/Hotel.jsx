@@ -102,11 +102,16 @@ const Hotel = () => {
         numberOfRooms: room,
         hotelName: hotelPost.name,
       };
-      console.log(hotelReservation);
       const response = await axios
         .post(
           `http://localhost:8800/api/users/${user_Id}/reservations`,
-          JSON.stringify(body)
+          {
+            hotelId: hotelId,
+            checkInDate: ctx.StartDate,
+            checkOutDate: ctx.FinalDate,
+            numberOfRooms: room,
+            hotelName: hotelPost.name,
+          }
 
         )
         .then((response) => {
@@ -230,7 +235,7 @@ const Hotel = () => {
                 <b>${room * vacation * hotelPost.cheapestPrice}</b> ( {room}{" "}
                 Rooms & {vacation} nights)
               </h6>
-              <button onClick={handleClick}>Reserve or Book Now!</button>
+              <button type="button" onClick={(e) => handleClick(e)}>Reserve or Book Now!</button>
               {/* <Link variant="primary" to={`/reservation/${user_id}`} onClick={()=>ctx.setReservedHotel(id)}>Reserve or Book Now!</Link> */}
             </div>
           </div>
