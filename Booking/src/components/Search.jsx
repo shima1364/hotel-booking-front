@@ -50,7 +50,7 @@ function Search(props) {
       <ToastContainer />
       <div
         className="py-2 ps-3 ps-lg-0 align-items-start align-items-lg-center rounded-3 mb-3 d-flex flex-column flex-lg-row justify-content-evenly col-12"
-        style={{ backgroundColor: "#FFB700", width: "70%" }}
+        style={{ backgroundColor: "#FFB700", minWidth: "65%" }}
       >
         <div className="">
           <SelectLocation />
