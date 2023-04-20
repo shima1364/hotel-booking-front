@@ -18,9 +18,6 @@ const Map = ({ hotels }) => {
     setPosition(hotels.map((item)=>item.location));
   }, [hotels]);
 
-  console.log(position, 'POSITION')
-  console.log(mapCenter, 'POSITION')
-
   useEffect(() => {
     if (position && position.length > 0) {
       const lat = position.reduce((sum, item) => sum + item.lat, 0) / position.length;
