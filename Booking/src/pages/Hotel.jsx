@@ -90,7 +90,7 @@ const Hotel = () => {
     ctx.setReservedHotel(hotelId);
 
     if (ctx.token === undefined) {
-      toast.error("Please Sign in", { position: toast.POSITION.TOP_LEFT });
+      toast.error("Log in to your account", { position: toast.POSITION.TOP_LEFT });
       setTimeout(() => {
         navigateToSignin("/signin");
       }, 5000);

@@ -34,7 +34,7 @@ function SignIn() {
         console.log(userId);
 
         setTimeout(() => navigate("/"), 2000);
-        toast.success("Your Sing in has been Successful", {
+        toast.success("Your Log in  has been Successful", {
           position: toast.POSITION.TOP_CENTER,
         });
       })

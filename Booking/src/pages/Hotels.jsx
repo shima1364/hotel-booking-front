@@ -9,7 +9,7 @@ import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import HotelCard from "../utility/elements/HotelCard";
 import Map from './../components/map';
-import Filter from "../components/filter";
+// import Filter from "../components/filter";
 
 export default function Hotels(props) {
   const [Type, setType] = useState();
@@ -74,7 +74,7 @@ export default function Hotels(props) {
             <div className="mt-3 h-75">
               <Map key={ctx.Destination} hotels={ctx.hotels}/>
             </div>
-            <Filter handleFilter={filterdItem}/>
+            {/* <Filter handleFilter={filterdItem}/> */}
         </div>
         <div className="col-1"></div>
         <div className="col-lg-8 col-12 mt-3">
