@@ -68,7 +68,7 @@ const Hotel = () => {
     const getEntryById = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8800/api/hotels/${hotelId}`
+          `${process.env.REACT_APP_API_ENDPOINT}api/hotels/${hotelId}`
         );
         const entries = await response.json();
         setHotelPost(entries);
@@ -104,7 +104,7 @@ const Hotel = () => {
       };
       const response = await axios
         .post(
-          `http://localhost:8800/api/users/${user_Id}/reservations`,
+          `${process.env.REACT_APP_API_ENDPOINT}api/users/${user_Id}/reservations`,
           {
             hotelId: hotelId,
             checkInDate: ctx.StartDate,

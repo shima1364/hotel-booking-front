@@ -12,7 +12,7 @@ const ReservationHistory = () => {
     const getEntryById = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8800/api/users/${userId}/reservations`
+          `${process.env.REACT_APP_API_ENDPOINT}api/users/${userId}/reservations`
         );
         const entries = await response.json();
         setUserHistiry(entries);

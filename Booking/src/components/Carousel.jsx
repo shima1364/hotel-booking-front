@@ -22,7 +22,7 @@ function Carousel(props) {
               key={items._id}
               className="d-flex flex-column align-items-center"
             >
-              <Link to={`/hotels/${items._id}`} >
+              <Link to={`/hotels/${items._id}`}className="d-flex flex-column align-items-center">
               <img
                 className="rounded-3"
                 width="200"

@@ -13,7 +13,7 @@ function LandingPage(props) {
 const ctx = useContext(DataContext)
 
 async function fetchData() {
-  const response = await fetch("http://localhost:8800/api/hotels");
+  const response = await fetch(`${process.env.REACT_APP_API_ENDPOINT}api/hotels`);
   const data = await response.json();
   ctx.setHotelAPI(data);
 }
