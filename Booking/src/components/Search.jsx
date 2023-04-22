@@ -45,6 +45,10 @@ function Search(props) {
     }
   };
 
+  const DestinationHandler = (dest) => {
+    ctx.setDestination(dest);
+  };
+
   return (
     <div className="container mt-3 d-flex d-lg-flex justify-content-center align-items-center">
       <ToastContainer />
@@ -53,7 +57,7 @@ function Search(props) {
         style={{ backgroundColor: "#FFB700", minWidth: "65%" }}
       >
         <div className="">
-          <SelectLocation />
+          <SelectLocation select={DestinationHandler}/>
         </div>
         <div className="my-2">
           <SelectDateStart />

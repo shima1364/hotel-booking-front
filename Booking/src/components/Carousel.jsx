@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar, A11y } from "swiper";
 import "../utility/sass/swiper.scss";
 import "swiper/css";
+import { Link } from "react-router-dom";
 
 function Carousel(props) {
   return (
@@ -14,8 +15,6 @@ function Carousel(props) {
         spaceBetween={20}
         slidesPerView={5}
         navigation
-        // onSlideChange={() => console.log("slide change")}
-        // onSwiper={(swiper) => console.log(swiper)}
       >
         {props.image.map((items) => (
           <>
@@ -23,6 +22,7 @@ function Carousel(props) {
               key={items._id}
               className="d-flex flex-column align-items-center"
             >
+              <Link to={`/hotels/${items._id}`} >
               <img
                 className="rounded-3"
                 width="200"
@@ -31,6 +31,7 @@ function Carousel(props) {
                 alt="pic"
               />
               <span className="mt-1 title">{items.name}</span>
+              </Link>
             </SwiperSlide>
           </>
         ))}

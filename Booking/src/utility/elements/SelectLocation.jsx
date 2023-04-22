@@ -1,27 +1,33 @@
 import { useRef, useContext } from "react";
 import { DataContext } from "./../../context/dataContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBed } from "@fortawesome/free-solid-svg-icons";
 import "../sass/SelectLocation.scss";
+import { Autocomplete, TextField } from "@mui/material";
+import styled from "@emotion/styled";
 
 function SelectLocation(props) {
   const Location = useRef();
   const ctx = useContext(DataContext);
-  const DestinationHandler = () => {
-    ctx.setDestination(Location.current.value);
+
+  const hesam = ctx.HotelAPI.map((item) => item.city);
+  const Cities = [...new Set(hesam)];
+
+  const DestinationHandler = (val) => {
+    props.select(val);
   };
+
   return (
-    <div className="DestParent d-flex align-items-center rounded-1 me-2 w-100">
-      <span className="BedIcon">
-        <FontAwesomeIcon icon={faBed} />
-      </span>
-      <input
-        className="border-0 ps-4 DestInput"
-        type="text"
-        placeholder="Destination"
+    <div style={{minWidth:'200px'}}>
+      <Autocomplete
+      className="bg-white rounded-1"
+        disablePortal
+        id="combo-box-demo"
+        options={Cities}
         ref={Location}
-        onChange={DestinationHandler}
         value={ctx.Destination}
+        onChange={(event, value) => DestinationHandler(value)}
+        renderInput={(params) => (
+          <TextField {...params} label="City" />
+        )}
       />
     </div>
   );
